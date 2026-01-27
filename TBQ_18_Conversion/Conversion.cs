@@ -1,10 +1,14 @@
 using System;
 
-class Solution
+class Program
 {
-    public static double ConvertFeetToCentimeters(int feet)
+    static void Main()
     {
+        int feet = 5;
+
         double centimeters = feet * 30.48;
-        return Math.Round(centimeters, 2, MidpointRounding.AwayFromZero);
+        double result = Math.Round(centimeters, 2, MidpointRounding.AwayFromZero);
+
+        Console.WriteLine(result);
     }
 }
