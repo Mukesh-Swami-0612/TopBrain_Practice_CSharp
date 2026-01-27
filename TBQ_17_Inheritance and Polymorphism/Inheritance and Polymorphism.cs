@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 abstract class Employee
 {
@@ -53,27 +52,34 @@ class CommissionEmployee : Employee
     }
 }
 
-class Solution
+class Program
 {
-    public static decimal TotalPayroll(string[] employees)
+    static void Main()
     {
-        decimal total = 0;
+        string[] employees =
+        {
+            "H 100 5",
+            "S 30000",
+            "C 5000 20000"
+        };
+
+        decimal totalPay = 0;
 
         foreach (string emp in employees)
         {
-            string[] parts = emp.Split(' ');
+            string[] p = emp.Split(' ');
             Employee e = null;
 
-            if (parts[0] == "H")
-                e = new HourlyEmployee(decimal.Parse(parts[1]), decimal.Parse(parts[2]));
-            else if (parts[0] == "S")
-                e = new SalariedEmployee(decimal.Parse(parts[1]));
-            else if (parts[0] == "C")
-                e = new CommissionEmployee(decimal.Parse(parts[1]), decimal.Parse(parts[2]));
+            if (p[0] == "H")
+                e = new HourlyEmployee(decimal.Parse(p[1]), decimal.Parse(p[2]));
+            else if (p[0] == "S")
+                e = new SalariedEmployee(decimal.Parse(p[1]));
+            else if (p[0] == "C")
+                e = new CommissionEmployee(decimal.Parse(p[1]), decimal.Parse(p[2]));
 
-            total += e.GetPay();
+            totalPay += e.GetPay();
         }
 
-        return Math.Round(total, 2);
+        Console.WriteLine(Math.Round(totalPay, 2));
     }
 }
