@@ -1,10 +1,13 @@
-class Solution
-{
-    public static int CountCharacters(string input)
-    {
-        if (input == null)
-            return 0;
+using System;
 
-        return input.Length;
+class Program
+{
+    static void Main()
+    {
+        string input = "Hello World";
+
+        int count = input.Length;
+
+        Console.WriteLine(count);
     }
 }
