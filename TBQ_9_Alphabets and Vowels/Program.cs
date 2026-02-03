@@ -4,55 +4,55 @@ using System.Text;
 
 class Program
 {
-    static bool IsVowel(char c)
-    {
-        c = char.ToLower(c);
-        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
-    }
-
     static void Main()
     {
-        string first = Console.ReadLine();
-        string second = Console.ReadLine();
+        string word1 = Console.ReadLine();
+        string word2 = Console.ReadLine();
 
-        // Store consonants from second word (case-insensitive)
-        HashSet<char> consonantsInSecond = new HashSet<char>();
-        foreach (char ch in second)
+        HashSet<char> set = new HashSet<char>();
+
+        foreach (char ch in word2.ToLower())
         {
-            char c = char.ToLower(ch);
-            if (!IsVowel(c)) consonantsInSecond.Add(c);
+            set.Add(ch);
         }
 
-        // Task 1: Remove consonants from first that appear in second
         StringBuilder filtered = new StringBuilder();
-        foreach (char ch in first)
+
+        foreach (char ch in word1)
         {
-            char c = char.ToLower(ch);
+            char lower = char.ToLower(ch);
 
-            if (!IsVowel(c) && consonantsInSecond.Contains(c))
-                continue; // remove common consonant
+            bool isVowel = IsVowel(lower);
 
-            filtered.Append(ch); // keep
+            if (!isVowel && set.Contains(lower))
+            {
+                continue;
+            }
+
+            filtered.Append(ch);
         }
 
-        // Task 2: Remove consecutive duplicates (case-insensitive)
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < filtered.Length; i++)
-        {
-            if (i == 0)
-            {
-                result.Append(filtered[i]);
-            }
-            else
-            {
-                char prev = char.ToLower(result[result.Length - 1]);
-                char curr = char.ToLower(filtered[i]);
 
-                if (prev != curr)
+        if (filtered.Length > 0)
+        {
+            result.Append(filtered[0]);
+
+            for (int i = 1; i < filtered.Length; i++)
+            {
+                if (filtered[i] != filtered[i - 1])
+                {
                     result.Append(filtered[i]);
+                }
             }
         }
 
         Console.WriteLine(result.ToString());
+    }
+
+    static bool IsVowel(char ch)
+    {
+        return ch == 'a' || ch == 'e' || ch == 'i' ||
+               ch == 'o' || ch == 'u';
     }
 }
